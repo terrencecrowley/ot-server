@@ -1,0 +1,36 @@
+{
+  "name": "js-share",
+  "version": "1.0.0",
+  "description": "OT over a variety of application models.",
+  "main": "./server.js",
+  "scripts": {
+    "start": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terrencecrowley/js-share.git"
+  },
+  "keywords": [
+    "Node",
+    "OT"
+  ],
+  "author": "Terry Crowley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/terrencecrowley/js-share/issues"
+  },
+  "homepage": "https://github.com/terrencecrowley/js-share#readme",
+  "dependencies": {
+    "@terrencecrowley/ot-editutil": "^1.0.0",
+    "@terrencecrowley/ot-js": "^1.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "connect-flash": "^0.1.1",
+    "express-session": "^1.15.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0"
+  }
+}

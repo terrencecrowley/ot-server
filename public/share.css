@@ -1,0 +1,495 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+}
+
+.WhiteKing { background-image: url('./WhiteKing.png'); }
+.WhiteQueen { background-image: url('./WhiteQueen.png'); }
+.WhiteBishop { background-image: url('./WhiteBishop.png'); }
+.WhiteKnight { background-image: url('./WhiteKnight.png'); }
+.WhiteRook { background-image: url('./WhiteRook.png'); }
+.WhitePawn { background-image: url('./WhitePawn.png'); }
+.BlackKing { background-image: url('./BlackKing.png'); }
+.BlackQueen { background-image: url('./BlackQueen.png'); }
+.BlackBishop { background-image: url('./BlackBishop.png'); }
+.BlackKnight { background-image: url('./BlackKnight.png'); }
+.BlackRook { background-image: url('./BlackRook.png'); }
+.BlackPawn { background-image: url('./BlackPawn.png'); }
+
+.ShowOpen { background-image: url('./ShowOpen.png'); }
+.ShowYes { background-image: url('./ShowYes.png'); }
+.ShowNo { background-image: url('./ShowNo.png'); }
+.ShowMaybe { background-image: url('./ShowMaybe.png'); }
+.ShowPicked { background-image: url('./ShowPicked.png'); }
+
+td {
+	border-style: solid;
+	border-width: 4px;
+	border-color: black;
+}
+
+.right {
+	text-align: right;
+}
+
+.query {
+	position: absolute;
+	left: 12%;
+	top: 20%;
+	width: 75%;
+	border-style: solid;
+	border-width: 4px;
+	border-color: black;
+	padding: 10px;
+	background-color: white;
+	color: black;
+}
+
+.menu {
+	position: absolute;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+
+.menuchoice {
+	cursor: pointer;
+}
+
+.menuchoice:hover {
+	background-color: grey;
+	cursor: pointer;
+}
+
+.menutarget {
+	cursor: pointer;
+}
+
+.popupprops {
+	border-style: solid;
+	border-width: 4px;
+	border-color: black;
+	padding: 10px;
+	background-color: white;
+	color: black;
+	width: 75%;
+	position: absolute;
+	left: 12%;
+	top: 20%;
+}
+
+.selected {
+	border-style: solid;
+	border-width: 4px;
+	border-color: red;
+}
+
+.targeted {
+	border-style: solid;
+	border-width: 4px;
+	border-color: green;
+}
+
+.cellborder {
+	padding: 4px;
+}
+
+.cellgrid {
+}
+
+.cellblack {
+	background-color: #333333;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	background-size: contain;
+	width: 11vw;
+	height: 11vw;
+}
+
+.cellwhite {
+	background-color: #cccccc;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	background-size: contain;
+	width: 11vw;
+	height: 11vw;
+}
+
+button img {
+	height: 1em;
+}
+
+.floating {
+	float: left;
+}
+
+.agreeCell {
+	display: table-cell;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	background-size: contain;
+	border-style: solid;
+	border-width: 1px;
+	border-color: white;
+	text-align: center;
+	color: white;
+}
+
+.agreeRowHeader {
+	background-color: #1118B9;
+	width: 2%;
+	min-width: 6em;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.agreeColHeader {
+	background-color: #1118B9;
+	width: 1%;
+	min-width: 6em;
+	cursor: pointer;
+}
+
+.agreeMain {
+	background-color: #E7E8F2;
+	width: 1%;
+	cursor: pointer;
+}
+
+.agreeEmpty {
+	background-color: #BCBFEF;
+	width: 1%;
+}
+
+.agreeCorner {
+	background-color: #BCBFEF;
+	cursor: default;
+}
+
+.table {
+	display: table;
+}
+
+.tablerow {
+	display: table-row;
+}
+
+body {
+	height: 100%;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+a img {
+	border: none;
+}
+
+html {
+	background: #dddddd;
+	height: 100%;
+	font-family: Trebuchet MS, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+body, input, textarea {
+	background: #dddddd;
+	color: black;
+}
+
+input, textarea {
+	border-style: hidden;
+	border-width: 1px;
+	background: #dddddd;
+}
+
+#root { height: 100%; }
+
+.wrapper {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: stretch;
+}
+
+.sessioncell {
+	white-space: nowrap;
+	margin: 4px;
+}
+
+.header {
+	display: flex;
+	flex-grow: 0;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	width: 100%;
+}
+
+.stretchchild {
+	flex: 1;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 100%;
+}
+
+.spread {
+	justify-content: space-between;
+}
+
+.distinctblock {
+	padding-bottom: 10px;
+}
+
+.faded {
+	color: grey;
+}
+
+.deleted {
+	text-decoration: line-through;
+}
+
+.headerrow {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 0;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background: #777777;
+	color: white;
+}
+
+.chatcontainer {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 25%;
+	align-items: stretch;
+	background: #eeeeee;
+}
+
+.agreecontainer {
+	display: flex;
+	flex: 1 1 75%;
+}
+
+.chatbox {
+	padding: 2px 2px 2px 2px;
+	border-width: 2px;
+	border-color: black;
+	border-style: solid;
+	flex-grow: 1;
+	overflow-y: scroll;
+}
+
+.agreeinput {
+	border-width: 2px;
+	border-color: black;
+	border-style: solid;
+	margin-top: 2px;
+	flex-grow: 0;
+	width: 6em;
+}
+
+.chatinput {
+	border-width: 2px;
+	border-color: black;
+	border-style: solid;
+	margin-top: 2px;
+	flex-grow: 0;
+}
+
+.subtleinput {
+	flex-grow: 0;
+	border-width: 0;
+	margin-top: 0;
+	background-color: white;
+}
+
+.popup {
+	color: black;
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	right: 15px;
+	text-align: center;
+	padding: 8px;
+	background: #eeeeee;
+	border: 2px;
+	border-color: slate;
+	border-style: solid;
+}
+
+.headerrow a { color: white; text-decoration: none; }
+.headerrow a:visited { color: white; text-decoration: none; }
+.headerrow a:hover { color: white; text-decoration: underline; }
+.headerrow a:active { color: white; text-decoration: underline; }
+
+.popup a { color: black; text-decoration: none; }
+.popup a:visited { color: black; text-decoration: none; }
+.popup a:hover { color: black; text-decoration: underline; }
+.popup a:active { color: black; text-decoration: underline; }
+
+.footer {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 0;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 5px;
+	padding-bottom: 2px;
+	background: #777777;
+	color: white;
+}
+
+.content {
+	display: flex;
+	flex-grow: 1;
+	align-items: stretch;
+}
+
+input {
+	font-family: Trebuchet MS, Helvetica, sans-serif;
+	font-size: 100%;
+	flex-grow: 1;
+}
+
+textarea {
+	flex: 3 1 75%;
+	font-family: Trebuchet MS, Helvetica, sans-serif;
+	font-size: 100%;
+}
+
+button {
+	font-family: Trebuchet MS, Helvetica, sans-serif;
+	font-size: 100%;
+}
+
+.actionButton {
+	background-color: lightgreen
+}
+
+.hr
+{
+	background-color: white;
+	padding: 1px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+.item:hover
+{
+	background-color: white;
+	padding: 8px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+.item
+{
+	background-color: white;
+	padding: 8px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: white;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+.newitem
+{
+	background-color: #cccccc;
+	padding: 8px;
+	color: blue;
+	text-align: center;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	min-width: 150px;
+}
+.newitem:hover
+{
+	background-color: LightCyan;
+	padding: 8px;
+	color: black;
+	text-align: center;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	min-width: 150px;
+	cursor: pointer;
+}
+.buckethead
+{
+	padding: 8px;
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #dddddd;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+.buckethead:hover
+{
+	padding: 8px;
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+.newbucket
+{
+	padding: 8px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #dddddd;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+.newbucket:hover
+{
+	background-color: LightCyan;
+	padding: 8px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	cursor: pointer;
+}
+.items
+{
+	margin-left: 4px;
+	margin-right: 4px;
+}

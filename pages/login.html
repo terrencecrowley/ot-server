@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sign up for Share</title>
+<meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+
+<script ssrc="/scripts/shareclient.bundle.js"></script>
+<style>
+html {
+	background: #dddddd;
+	font-family: Trebuchet MS, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+body {
+	text-align: center;
+}
+
+.button, button {
+	background-color: blue;
+	color: white;
+	font-size: 150%;
+}
+
+input {
+	border-style: solid;
+	border-width: 2px;
+	border-color: blue;
+}
+
+div {
+	margin-top: 24px;
+}
+
+.label {
+	text-align: right;
+}
+
+</style>
+
+<body>
+
+<h1>
+Share
+</h1>
+<div>
+<a href="/auth/facebook"><button style="background-color: blue; color: white">LOG IN WITH FACEBOOK</button></a>
+</div>
+<div>
+OR
+</div>
+
+<form action="/login" method="post">
+	<div>
+		Use Email Log In <br/>
+	</div>
+	<div></div>
+	<table align=center>
+	<tr>
+	<td class=label>Email:</td>
+	<td><input type="text" name="username"/></td>
+	</tr>
+	<tr>
+	<td class=label>Password:</td>
+	<td><input type="password" name="password"/></td>
+	</tr>
+	</table>
+    <div>
+        <input class=button type="submit" value="LOG IN"/>&nbsp;
+        <input class=button name="signup" type="submit" value="SIGN UP"/>
+    </div>
+</form>
+
+</body>
+</html>
