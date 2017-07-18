@@ -32,7 +32,8 @@ bower_components
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Test directories
+# Build/test directories
+dist/
 clientdist/
 public/
 
