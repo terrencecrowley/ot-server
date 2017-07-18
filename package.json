@@ -7,7 +7,7 @@
     "start": "node server",
     "build": "webpack",
     "webpack": "node_modules/.bin/webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"test": "cp ../js-share/clientdist/* clientdist && cp -r ../js-share/public public && node server"
   },
   "repository": {
     "type": "git",
