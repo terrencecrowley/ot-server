@@ -36,6 +36,8 @@ build/Release
 dist/
 clientdist/
 public/
+state/state.json
+state/users.json
 
 # Dependency directories
 node_modules/

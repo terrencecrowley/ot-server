@@ -7,7 +7,7 @@
     "start": "node server",
     "build": "webpack",
     "webpack": "node_modules/.bin/webpack",
-	"test": "cp ../js-share/clientdist/* clientdist && cp -r ../js-share/public public && node server"
+	"test": "rm -rf clientdist public && cp -R ../js-share/clientdist clientdist && cp -R ../js-share/public public && node server"
   },
   "repository": {
     "type": "git",
