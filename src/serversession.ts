@@ -41,6 +41,7 @@ export class Client
 {
 	clientID: string;
 	user: UM.User;
+	private bDead: boolean;
 	private context: ServerContext;
 	private lastActive: Date;
 	private longPollResponse: any;
@@ -51,6 +52,7 @@ export class Client
 		{
 			this.user = u as UM.User;
 			this.user.sessions[sid] = true;
+			this.bDead = false;
 			this.clientID = cid;
 			this.context = ctx;
 			this.lastActive = new Date();
@@ -61,6 +63,8 @@ export class Client
 	
 	isZombie(fromDate?: Date, timeout?: number): boolean
 		{
+			if (this.bDead) return true;
+
 			if (fromDate === undefined) fromDate = new Date();
 			if (timeout === undefined) timeout = clientQuiescentTimeout;
 
@@ -71,6 +75,12 @@ export class Client
 		{
 			this.lastActive = new Date();
 			return this;
+		}
+
+	markDead(sid: string): void
+		{
+			this.bDead = true;
+			delete this.user.sessions[sid];
 		}
 
 	parkResponse(res: any, body: any): void
@@ -189,6 +199,31 @@ export class Session
 				this.serverEngine.logServer.splice(1, nCompress-1);
 				this.context.log(0, "session(" + this.sessionID + "): compressing log.");
 			}
+		}
+
+	// Leave
+	leaveSession(req: any, res: any): void
+		{
+			let responseBody: any = { result: 0 };
+			if (req.user == null)
+			{
+				responseBody.result = 1;
+				responseBody.message = "No valid user.";
+			}
+			else if (req.body.clientID == null)
+			{
+				responseBody.result = 1;
+				responseBody.message = "No valid client.";
+			}
+			else
+			{
+				let clientID: any = req.body.clientID;
+				this.findClient(clientID, req.user).markDead(this.sessionID);
+				this.updateUserList();
+
+				responseBody.user = req.user.toView(theManager);
+			}
+			res.json(responseBody);
 		}
 
 	// Connect
@@ -456,6 +491,25 @@ export class SessionManager
 			{
 				let responseBody: any = { "result": 1, "message": "connectSession: no such session: " + session_id };
 				this.context.log(1, "connectSession: " + JSON.stringify(responseBody));
+				res.json(responseBody);
+			}
+			this.setHousekeepingTimer();
+		}
+
+	// Leave
+		// OUT: { result: [0,1], message: "failure message", user: { user info } }
+	leaveSession(req: any, res: any, session_id: string): void
+		{
+			let session: Session = this.findSession(session_id);
+			if (session)
+			{
+				session.leaveSession(req, res);
+				this.bDirty = true;
+			}
+			else
+			{
+				let responseBody: any = { "result": 1, "message": "leaveSession: no such session: " + session_id };
+				this.context.log(1, "leaveSession: " + JSON.stringify(responseBody));
 				res.json(responseBody);
 			}
 			this.setHousekeepingTimer();

@@ -212,6 +212,12 @@ router.route('/sessions/connect/:session_id')
 		sessionManager.connectSession(req, res, req.params.session_id);
 		});
 
+router.route('/sessions/leave/:session_id')
+	.post(isLoggedInAPI, function(req, res) {
+		serverContext.log(1, "leaveSession");
+		sessionManager.leaveSession(req, res, req.params.session_id);
+		});
+
 router.route('/sessions/sendevent/:session_id')
 	.post(isLoggedInAPI, function(req, res) {
 		serverContext.log(1, "sendEvent");
