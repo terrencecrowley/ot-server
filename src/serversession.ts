@@ -51,7 +51,7 @@ export class Client
 	constructor(ctx: ServerContext, sid: string, cid: string, u: any)
 		{
 			this.user = u as UM.User;
-			this.user.sessions[sid] = true;
+			this.user.sessions[sid] = this.users.sessions[sid] + 1;
 			this.bDead = false;
 			this.clientID = cid;
 			this.context = ctx;
@@ -80,7 +80,9 @@ export class Client
 	markDead(sid: string): void
 		{
 			this.bDead = true;
-			delete this.user.sessions[sid];
+			this.user.sessions[sid] = this.users.sessions[sid] - 1;
+			if (this.users.sessions[sid] == 0)
+				delete this.user.sessions[sid];
 		}
 
 	parkResponse(res: any, body: any): void
@@ -114,7 +116,7 @@ export class Session
 	private statRequestCount: number;
 
 	// Constructor
-	constructor(ctx: ServerContext)
+	constructor(ctx: ServerContext, sessionType: string)
 		{
 			this.context = ctx;
 			this.sessionID = Util.createGuid();
@@ -125,6 +127,18 @@ export class Session
 			this.statMaxClients = 0;
 			this.statRequestCount = 0;
 			this.context.log(0, "session(" + this.sessionID + "): created.");
+
+			// Set sessionType (empty when creating from stored data set with existing meta resource)
+			if (sessionType)
+			{
+				let cedit: OT.OTCompositeResource = new OT.OTCompositeResource(this.sessionID, ClientIDForServer);
+				let medit: OT.OTMapResource = new OT.OTMapResource('WellKnownName_meta');
+				cedit.edits.push(medit);
+				cedit.clock = this.serverEngine.serverClock();
+				medit.edits.push([ OT.OpMapSet, 'type', sessionType ]);
+				cedit.clientSequenceNo = this.clientSequenceNo++;
+				this.serverEngine.addServer(cedit);
+			}
 		}
 
 	isZombie(fromDate?: Date, timeout?: number): boolean
@@ -463,11 +477,11 @@ export class SessionManager
 		}
 
 	// Create
-		// IN: {  }
+		// IN: { sessionType: string }
 		// OUT: { result: 0, session_id: string }
-	createSession(req: any, res: any): void
+	createSession(req: any, res: any, body: any): void
 		{
-			let session: Session = new Session(this.context);
+			let session: Session = new Session(this.context, body.sessionType);
 			this.sessions.push(session);
 			this.sessionMap[session.sessionID] = session;
 			let responseBody: any = { result: 0, view: session.toView() };
@@ -644,7 +658,7 @@ export class SessionManager
 			for (var p in o)
 				if (o.hasOwnProperty(p))
 				{
-					let session: Session = new Session(this.context);
+					let session: Session = new Session(this.context, null);
 					//session.sessionID = p;
 					session.fromJSON(o[p]);
 					this.sessions.push(session);

@@ -203,7 +203,7 @@ router.route('/sessions/userview')
 router.route('/sessions/create')
 	.post(isLoggedInAPI, function(req, res) {
 		serverContext.log(1, "createSession");
-		sessionManager.createSession(req, res);
+		sessionManager.createSession(req, res, req.body);
 		});
 
 router.route('/sessions/connect/:session_id')
