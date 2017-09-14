@@ -17,7 +17,7 @@ var serverConfig = {
 	entry: './src/server.ts',
 	target: 'node',
 	output: {
-		path: './dist',
+		path: __dirname + '/dist',
 		filename: 'shareserver.bundle.js'
 	},
 	externals: nodeModules,
@@ -26,17 +26,14 @@ var serverConfig = {
 	devtool: "source-map",
 
 	resolve: {
-		extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+		extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
 	},
 
 	module: {
-		loaders: [
+		rules: [
 			{ test: /\.tsx?$/, loader: 'ts-loader' },
-			{ test: /\.json$/, loader: 'json-loader' }
-		],
-
-		preLoaders: [
-			{ test: /\.js$/, loader: "source-map-loader" }
+			{ test: /\.json$/, loader: 'json-loader' },
+			{ test: /\.js$/, enforce: "pre", loader: "source-map-loader" }
 		]
 	}
 };

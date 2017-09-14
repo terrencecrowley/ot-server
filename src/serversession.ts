@@ -6,10 +6,10 @@ import * as Util from "./util";
 const StateVersion: number = 6.0;
 const ClientIDForServer: string = '-Server-';
 
-const clientQuiescentTimeout: number = process.env.CLIENT_QUIESCENT_TIMEOUT || 20000; // 20 seconds
-const sessionQuiescentTimeout: number = process.env.SESSION_QUIESCENT_TIMEOUT || 6000000; // 100 minutes
-const clientMaxCount: number = process.env.CLIENT_MAX_COUNT || 50;
-const maxEditLogSize: number = process.env.MAX_EDIT_LOG_SIZE || 500;
+const clientQuiescentTimeout: number = Number(process.env.CLIENT_QUIESCENT_TIMEOUT) || 20000; // 20 seconds
+const sessionQuiescentTimeout: number = Number(process.env.SESSION_QUIESCENT_TIMEOUT) || 6000000; // 100 minutes
+const clientMaxCount: number = Number(process.env.CLIENT_MAX_COUNT) || 50;
+const maxEditLogSize: number = Number(process.env.MAX_EDIT_LOG_SIZE) || 500;
 
 export class ServerContext implements OT.IExecutionContext
 {
@@ -17,7 +17,7 @@ export class ServerContext implements OT.IExecutionContext
 
 	constructor()
 		{
-			this.verbosity = process.env.VERBOSITY || 0;
+			this.verbosity = Number(process.env.VERBOSITY) || 0;
 		}
 
 	flagIsSet(flag: string): boolean
@@ -51,7 +51,7 @@ export class Client
 	constructor(ctx: ServerContext, sid: string, cid: string, u: any)
 		{
 			this.user = u as UM.User;
-			this.user.sessions[sid] = this.users.sessions[sid] + 1;
+			this.user.sessions[sid] = this.user.sessions[sid] + 1;
 			this.bDead = false;
 			this.clientID = cid;
 			this.context = ctx;
@@ -80,8 +80,8 @@ export class Client
 	markDead(sid: string): void
 		{
 			this.bDead = true;
-			this.user.sessions[sid] = this.users.sessions[sid] - 1;
-			if (this.users.sessions[sid] == 0)
+			this.user.sessions[sid] = this.user.sessions[sid] - 1;
+			if (this.user.sessions[sid] == 0)
 				delete this.user.sessions[sid];
 		}
 
