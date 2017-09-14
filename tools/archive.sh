@@ -1,7 +1,7 @@
 #!/bin/sh
 
-SRCSERVER=./js-share-server
-SRCCLIENT=./js-share
+SRCSERVER=./ot-server
+SRCCLIENT=./ot-client
 DST=${SRCSERVER}.deploy
 
 if [ ! -e ${SRCSERVER} ]; then
