@@ -1,5 +1,5 @@
 {
-  "name": "js-share",
+  "name": "ot-server",
   "version": "1.0.0",
   "description": "OT over a variety of application models.",
   "main": "./server.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/terrencecrowley/js-share.git"
+    "url": "git+https://github.com/terrencecrowley/ot-server.git"
   },
   "keywords": [
     "Node",
@@ -17,9 +17,9 @@
   "author": "Terry Crowley",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/terrencecrowley/js-share/issues"
+    "url": "https://github.com/terrencecrowley/ot-server/issues"
   },
-  "homepage": "https://github.com/terrencecrowley/js-share#readme",
+  "homepage": "https://github.com/terrencecrowley/ot-server#readme",
   "dependencies": {
     "@terrencecrowley/ot-editutil": "^1.0.0",
     "@terrencecrowley/ot-js": "^1.0.1",

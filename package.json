@@ -7,7 +7,7 @@
     "start": "node server",
     "build": "webpack",
     "webpack": "node_modules/.bin/webpack",
-	"test": "rm -rf clientdist public && cp -R ../ot-client/clientdist clientdist && cp -R ../ot-client/public public && node server"
+    "test": "rm -rf clientdist public && cp -R ../ot-client/clientdist clientdist && cp -R ../ot-client/public public && node server"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/terrencecrowley/js-share-server#readme",
   "dependencies": {
     "@terrencecrowley/ot-editutil": "^1.0.0",
-    "@terrencecrowley/ot-js": "^1.0.1",
+    "@terrencecrowley/ot-js": "^1.0.20",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.1",
     "connect-flash": "^0.1.1",

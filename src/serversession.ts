@@ -215,6 +215,11 @@ export class Session
 			}
 		}
 
+	garbageCollect(): void
+		{
+			this.serverEngine.garbageCollect();
+		}
+
 	// Leave
 	leaveSession(req: any, res: any): void
 		{
@@ -594,6 +599,9 @@ export class SessionManager
 
 				// Compress session log
 				session.compress();
+
+				// Garbage collect resources
+				session.garbageCollect();
 
 				// Delete if necessary
 				if (session.isZombie(now))

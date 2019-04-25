@@ -22,7 +22,10 @@ cp -R ${SRCCLIENT}/clientdist ${DST}
 cp -R ${SRCCLIENT}/public ${DST}
 cp -R ${SRCSERVER}/pages ${DST}
 cp -R ${SRCSERVER}/state ${DST}
-rm ${DST}/state/*
+for i in ${DST}/state/*
+do
+echo '{}' > $i
+done
 cp -R ${SRCSERVER}/node_modules/express ${DST}/node_modules
 cp -R ${SRCSERVER}/node_modules/express-session ${DST}/node_modules
 cp -R ${SRCSERVER}/node_modules/passport ${DST}/node_modules
